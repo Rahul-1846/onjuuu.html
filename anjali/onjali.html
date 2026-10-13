@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>In Advance Happy 20th Birthday Onjali! 🌸</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #2e1065 0%, #1e1b4b 50%, #09090b 100%);
+            overflow-x: hidden;
+            touch-action: manipulation;
+        }
+        .script-font {
+            font-family: 'Dancing Script', cursive;
+        }
+        .door-container {
+            perspective: 1200px;
+        }
+        .door {
+            transform-style: preserve-3d;
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: left;
+        }
+        .door.open {
+            transform: rotateY(-115deg);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes floatPetal {
+            0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.8; }
+            50% { transform: translateY(-30px) rotate(180deg) scale(1.1); opacity: 1; }
+            100% { transform: translateY(0px) rotate(360deg) scale(1); opacity: 0.8; }
+        }
+        .petal {
+            position: absolute;
+            animation: floatPetal 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        .glow-text {
+            text-shadow: 0 0 20px rgba(244, 114, 182, 0.8), 0 0 40px rgba(236, 72, 153, 0.5);
+        }
+    </style>
+</head>
+<body class="min-h-screen text-white flex flex-col items-center justify-center p-4 relative">
+
+    <div id="petal-container" class="absolute inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- Hidden Audio Player for Background Song -->
+    <audio id="bg-music" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-tenderness.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="door-view" class="relative z-10 flex flex-col items-center text-center max-w-sm w-full transition-opacity duration-700">
+        <div class="mb-4 animate-bounce">
+            <span class="bg-pink-500/20 border border-pink-400/40 text-pink-200 text-xs uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+                🌸 Special Birthday Surprise 🌸
+            </span>
+        </div>
+
+        <h1 class="script-font text-5xl md:text-6xl text-pink-300 mb-6 glow-text">
+            For Onjali ✨
+        </h1>
+
+        <!-- Gorgeous Floral Door Frame -->
+        <div class="relative w-72 h-[420px] rounded-3xl p-3 glass-card flex items-center justify-center border-4 border-pink-400/40 door-container shadow-2xl">
+            <div class="absolute -top-5 -left-5 text-3xl animate-pulse">🌸</div>
+            <div class="absolute -top-5 -right-5 text-3xl animate-pulse">✨</div>
+            <div class="absolute -bottom-5 -left-5 text-3xl">🌷</div>
+            <div class="absolute -bottom-5 -right-5 text-3xl">🌹</div>
+
+            <!-- The Opening Wooden Door -->
+            <div id="main-door" class="door absolute inset-2 bg-gradient-to-br from-pink-700 via-purple-800 to-indigo-950 rounded-2xl p-6 flex flex-col justify-between border-2 border-pink-400/60 cursor-pointer select-none shadow-2xl">
+                <div class="text-center mt-2">
+                    <p class="text-xs uppercase tracking-widest text-pink-200 font-semibold mb-1">Tap to Knock & Enter</p>
+                    <h2 class="script-font text-3xl text-pink-100">Magical Gateway</h2>
+                </div>
+
+                <div class="flex flex-col items-center justify-center my-auto">
+                    <div class="w-28 h-28 rounded-full border-4 border-dashed border-pink-300/60 flex items-center justify-center mb-4 relative animate-spin" style="animation-duration: 25s;">
+                        <span class="absolute top-0 text-lg">🌹</span>
+                        <span class="absolute bottom-0 text-lg">🌸</span>
+                        <span class="absolute left-0 text-lg">🌷</span>
+                        <span class="absolute right-0 text-lg">🌺</span>
+                        <div class="w-12 h-12 rounded-full bg-pink-500/40 flex items-center justify-center shadow-inner">
+                            <i class="fa-solid fa-key text-pink-200 text-lg"></i>
+                        </div>
+                    </div>
+                    <div class="w-5 h-5 rounded-full bg-yellow-400 shadow-lg border border-yellow-200 absolute right-6 top-1/2 -translate-y-1/2"></div>
+                </div>
+
+                <div class="text-center mb-2">
+                    <span class="text-xs text-pink-200 bg-black/40 px-3 py-1 rounded-full border border-pink-400/30">
+                        <i class="fa-solid fa-hand-pointer mr-1"></i> Tap door to unlock
+                    </span>
+                </div>
+            </div>
+
+            <div class="absolute inset-4 rounded-2xl bg-gradient-to-tr from-indigo-950 via-purple-900 to-pink-950 flex flex-col items-center justify-center p-4 text-center z-[-1]">
+                <div class="text-4xl mb-2 animate-bounce">🎉</div>
+                <p class="script-font text-2xl text-pink-200">Entering Wonderland...</p>
+            </div>
+        </div>
+
+        <button id="sound-toggle" class="mt-6 text-xs text-pink-200 bg-white/10 hover:bg-white/20 px-4 py-2 rounded-full border border-white/25 transition flex items-center gap-2 shadow-lg">
+            <i class="fa-solid fa-music"></i> Enable Magic Audio Chords
+        </button>
+    </div>
+
+    <!-- Dashboard View (After Door Opens) -->
+    <div id="dashboard-view" class="hidden relative z-10 w-full max-w-xl flex flex-col items-center py-6 px-4 transition-opacity duration-1000 opacity-0">
+        <!-- Floating Music Player Control Badge -->
+        <div id="music-player-bar" class="mb-4 glass-card px-4 py-2 rounded-full flex items-center gap-3 border border-pink-400/40 shadow-lg">
+            <div class="w-8 h-8 rounded-full bg-pink-500/30 flex items-center justify-center text-pink-300 animate-spin" style="animation-duration: 6s;">
+                <i class="fa-solid fa-compact-disc text-sm"></i>
+            </div>
+            <div class="text-left">
+                <p class="text-xs font-semibold text-pink-200">Our Special Melody 🎶</p>
+                <p class="text-[10px] text-gray-300">Tap to Play/Pause Song</p>
+            </div>
+            <button onclick="toggleBackgroundMusic()" id="play-pause-btn" class="ml-2 w-8 h-8 rounded-full bg-pink-500 hover:bg-pink-600 text-white flex items-center justify-center transition shadow">
+                <i class="fa-solid fa-play text-xs"></i>
+            </button>
+        </div>
+
+        <!-- Celebration Header -->
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 bg-pink-500/20 border border-pink-400/40 px-4 py-1.5 rounded-full text-pink-300 text-xs md:text-sm mb-3">
+                <i class="fa-solid fa-cake-candles text-yellow-300"></i> Milestone 20th Birthday
+            </div>
+            <h2 class="script-font text-4xl md:text-5xl text-pink-300 mb-2 glow-text">
+                Happy 20th Birthday, Onjali! 🎂
+            </h2>
+            <p class="text-xs md:text-sm text-gray-200 max-w-md mx-auto font-light leading-relaxed">
+                Our first birthday celebrating together as besties! Check out your photo memories below and tap the gift boxes for special messages. 💖
+            </p>
+        </div>
+
+        <!-- 16 October Birthday Countdown Timer Card -->
+        <div class="w-full mb-6 glass-card p-4 rounded-2xl border border-pink-400/40 text-center shadow-xl relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 text-6xl opacity-10">❤️</div>
+            <h3 class="text-xs uppercase tracking-widest text-pink-300 font-semibold mb-2"><i class="fa-solid fa-clock mr-1 text-pink-400"></i> Countdown to Oct 16th (Advance Celebration)</h3>
+            <div class="grid grid-cols-4 gap-2 max-w-sm mx-auto mt-3">
+                <div class="bg-black/40 p-2 rounded-xl border border-pink-300/20">
+                    <span id="days" class="text-xl md:text-2xl font-bold text-pink-200">00</span>
+                    <p class="text-[10px] uppercase text-gray-300">Days</p>
+                </div>
+                <div class="bg-black/40 p-2 rounded-xl border border-pink-300/20">
+                    <span id="hours" class="text-xl md:text-2xl font-bold text-pink-200">00</span>
+                    <p class="text-[10px] uppercase text-gray-300">Hours</p>
+                </div>
+                <div class="bg-black/40 p-2 rounded-xl border border-pink-300/20">
+                    <span id="minutes" class="text-xl md:text-2xl font-bold text-pink-200">00</span>
+                    <p class="text-[10px] uppercase text-gray-300">Mins</p>
+                </div>
+                <div class="bg-black/40 p-2 rounded-xl border border-pink-300/20">
+                    <span id="seconds" class="text-xl md:text-2xl font-bold text-pink-200">00</span>
+                    <p class="text-[10px] uppercase text-gray-300">Secs</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Polaroid Photo Gallery Section -->
+        <div class="w-full mb-6">
+            <h3 class="text-xs uppercase tracking-widest text-pink-300 font-semibold mb-3 text-center">📸 Sweet Memories Gallery</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <!-- Photo Card 1 -->
+                <div class="glass-card p-2 rounded-2xl transform rotate-[-2deg] hover:rotate-0 transition duration-300 shadow-xl">
+                    <div class="w-full h-32 rounded-xl overflow-hidden bg-purple-900/50 flex items-center justify-center border border-pink-300/20">
+                        <img src="c:\Users\rahul zadake\Downloads\anjlai2.jpeg" alt="Memory 1" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <p class="script-font text-center text-pink-200 text-lg mt-1">Beautiful Smile ✨</p>
+                </div>
+                <!-- Photo Card 2 -->
+                <div class="glass-card p-2 rounded-2xl transform rotate-[2deg] hover:rotate-0 transition duration-300 shadow-xl">
+                    <div class="w-full h-32 rounded-xl overflow-hidden bg-purple-900/50 flex items-center justify-center border border-pink-300/20">
+                        <img src="c:\Users\rahul zadake\Downloads\anjali1.jpeg" alt="Memory 2" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <p class="script-font text-center text-pink-200 text-lg mt-1">Best Memories 🌸</p>
+                </div>
+                <!-- Photo Card 3 -->
+                <div class="glass-card p-2 rounded-2xl col-span-2 sm:col-span-1 transform rotate-[-1deg] hover:rotate-0 transition duration-300 shadow-xl">
+                    <div class="w-full h-32 rounded-xl overflow-hidden bg-purple-900/50 flex items-center justify-center border border-pink-300/20">
+                        <img src="c:\Users\rahul zadake\Downloads\anjali.jpg.jpeg" alt="Memory 3" class="w-full h-full object-cover" onerror="this.src='https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80'">
+                    </div>
+                    <p class="script-font text-center text-pink-200 text-lg mt-1">Forever Besties 🥂</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Four Interactive Message Boxes -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mb-6">
+            <div onclick="openMessage(1)" class="glass-card rounded-2xl p-4 cursor-pointer transform transition hover:scale-105 hover:bg-white/15 border border-pink-300/30 flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-xl bg-pink-500/30 flex items-center justify-center text-xl text-pink-300 group-hover:rotate-12 transition shrink-0">👑</div>
+                <div>
+                    <h3 class="font-semibold text-pink-200 text-sm md:text-base">Box 1: The Bestest Friend</h3>
+                    <p class="text-xs text-gray-300">Tap to read wish...</p>
+                </div>
+            </div>
+
+            <div onclick="openMessage(2)" class="glass-card rounded-2xl p-4 cursor-pointer transform transition hover:scale-105 hover:bg-white/15 border border-pink-300/30 flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-xl bg-purple-500/30 flex items-center justify-center text-xl text-purple-300 group-hover:rotate-12 transition shrink-0">🌸</div>
+                <div>
+                    <h3 class="font-semibold text-pink-200 text-sm md:text-base">Box 2: Your 20s Journey</h3>
+                    <p class="text-xs text-gray-300">Tap to read wish...</p>
+                </div>
+            </div>
+
+            <div onclick="openMessage(3)" class="glass-card rounded-2xl p-4 cursor-pointer transform transition hover:scale-105 hover:bg-white/15 border border-pink-300/30 flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-xl bg-indigo-500/30 flex items-center justify-center text-xl text-indigo-300 group-hover:rotate-12 transition shrink-0">🥂</div>
+                <div>
+                    <h3 class="font-semibold text-pink-200 text-sm md:text-base">Box 3: Our First Together</h3>
+                    <p class="text-xs text-gray-300">Tap to read wish...</p>
+                </div>
+            </div>
+
+            <div onclick="openMessage(4)" class="glass-card rounded-2xl p-4 cursor-pointer transform transition hover:scale-105 hover:bg-white/15 border border-pink-300/30 flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-xl bg-yellow-500/30 flex items-center justify-center text-xl text-yellow-300 group-hover:rotate-12 transition shrink-0">✨</div>
+                <div>
+                    <h3 class="font-semibold text-pink-200 text-sm md:text-base">Box 4: Safe Space & Support</h3>
+                    <p class="text-xs text-gray-300">Tap to read wish...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center text-xs text-pink-200/80 bg-black/30 px-6 py-2.5 rounded-full border border-pink-300/20 shadow-lg">
+            Created with endless love for Onjali 🌷
+        </div>
+    </div>
+
+    <!-- Message Modal -->
+    <div id="message-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md hidden opacity-0 transition-opacity duration-300">
+        <div id="modal-box" class="glass-card w-full max-w-md rounded-3xl p-6 md:p-8 border-2 border-pink-400/50 shadow-2xl relative transform scale-95 transition-transform duration-300">
+            <button onclick="closeMessageModal()" class="absolute top-4 right-4 text-gray-300 hover:text-white w-8 h-8 rounded-full bg-white/10 flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center">
+                <div id="modal-icon" class="text-5xl mb-3 animate-bounce">👑</div>
+                <h3 id="modal-heading" class="script-font text-3xl text-pink-300 mb-3">Happy 20th!</h3>
+                <p id="modal-body" class="text-sm md:text-base text-gray-200 leading-relaxed mb-6 font-light">
+                    <!-- Dynamic text goes here -->
+                </p>
+                <button onclick="closeMessageModal()" class="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-medium px-6 py-2.5 rounded-full shadow-lg transition transform active:scale-95">
+                    Close & Keep Exploring ✨
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Floating petals generation
+        const container = document.getElementById('petal-container');
+        const symbols = ['🌸', '✨', '💖', '🌷', '❤️', '🌹', '❤️'];
+        for (let i = 0; i < 22; i++) {
+            const span = document.createElement('span');
+            span.className = 'petal';
+            span.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            span.style.left = `${Math.random() * 100}%`;
+            span.style.top = `${Math.random() * 100}%`;
+            span.style.fontSize = `${Math.random() * 0.8 + 0.9}rem`;
+            span.style.animationDuration = `${Math.random() * 5 + 4}s`;
+            span.style.animationDelay = `${Math.random() * 4}s`;
+            container.appendChild(span);
+        }
+
+        // Countdown Timer to October 16, 2026
+        const targetDate = new Date('October 16, 2026 00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = String(days).padStart(2, '0');
+                document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+                document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+            } else {
+                document.getElementById('days').innerText = "00";
+                document.getElementById('hours').innerText = "00";
+                document.getElementById('minutes').innerText = "00";
+                document.getElementById('seconds').innerText = "00";
+            }
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Web Audio API sound synthesizer
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playKnockSound() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(140, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(40, audioCtx.currentTime + 0.08);
+                gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.08);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.08);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        function playMagicChord() {
+            try {
+                initAudio();
+                if (!audioCtx) return;
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.07);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime + idx * 0.07);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.07 + 0.7);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + idx * 0.07);
+                    osc.stop(audioCtx.currentTime + idx * 0.07 + 0.7);
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        // Background Music Control
+        const bgMusic = document.getElementById('bg-music');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        let isMusicPlaying = false;
+
+        function toggleBackgroundMusic() {
+            if (isMusicPlaying) {
+                bgMusic.pause();
+                playPauseBtn.innerHTML = '<i class="fa-solid fa-play text-xs"></i>';
+                isMusicPlaying = false;
+            } else {
+                bgMusic.play().then(() => {
+                    playPauseBtn.innerHTML = '<i class="fa-solid fa-pause text-xs"></i>';
+                    isMusicPlaying = true;
+                }).catch(e => {
+                    console.log("Audio play error:", e);
+                });
+            }
+        }
+
+        // Door mechanics
+        const mainDoor = document.getElementById('main-door');
+        const doorView = document.getElementById('door-view');
+        const dashboardView = document.getElementById('dashboard-view');
+        const soundToggle = document.getElementById('sound-toggle');
+        let isOpen = false;
+
+        mainDoor.addEventListener('click', () => {
+            if (isOpen) return;
+            isOpen = true;
+
+            playKnockSound();
+            setTimeout(playKnockSound, 160);
+            setTimeout(playMagicChord, 350);
+
+            bgMusic.play().then(() => {
+                playPauseBtn.innerHTML = '<i class="fa-solid fa-pause text-xs"></i>';
+                isMusicPlaying = true;
+            }).catch(e => console.log(e));
+
+            mainDoor.classList.add('open');
+
+            confetti({
+                particleCount: 90,
+                spread: 75,
+                origin: { y: 0.6 }
+            });
+
+            setTimeout(() => {
+                doorView.style.opacity = '0';
+                setTimeout(() => {
+                    doorView.classList.add('hidden');
+                    dashboardView.classList.remove('hidden');
+                    setTimeout(() => {
+                        dashboardView.style.opacity = '1';
+                    }, 50);
+                }, 700);
+            }, 1000);
+        });
+
+        soundToggle.addEventListener('click', () => {
+            initAudio();
+            playMagicChord();
+            soundToggle.innerHTML = '<i class="fa-solid fa-check text-green-300"></i> Magic Audio Enabled!';
+            soundToggle.classList.add('bg-pink-500/30');
+        });
+
+        // Gift Messages Database
+        const messagesData = {
+            1: {
+                icon: "👑",
+                heading: "The Bestest Friend",
+                text: "You are the absolute bestest friend anyone could ever ask for! Your kindness, beautiful smile, and caring heart make every single day brighter. Having you in my life is my biggest blessing."
+            },
+            2: {
+                icon: "🌸",
+                heading: "Your Glorious 20s",
+                text: "May your 20s bring you endless joy, grand success, and all the flowers in the world! Stepping into this milestone decade means incredible adventures are waiting for you."
+            },
+            3: {
+                icon: "🥂",
+                heading: "Our First Birthday Together",
+                text: "Even though this is our first birthday celebrating together, it feels like I've known and cherished you forever. Here's to making countless lifelong memories side by side!"
+            },
+            4: {
+                icon: "✨",
+                heading: "Safe Space & Support",
+                text: "Thank you for always being my safe space and biggest supporter. No matter where life takes us, always remember how deeply loved and treasured you are. Happy Birthday, Onjali! 🌸✨"
+            }
+        };
+
+        const messageModal = document.getElementById('message-modal');
+        const modalBox = document.getElementById('modal-box');
+        const modalIcon = document.getElementById('modal-icon');
+        const modalHeading = document.getElementById('modal-heading');
+        const modalBody = document.getElementById('modal-body');
+
+        function openMessage(id) {
+            playMagicChord();
+            const data = messagesData[id];
+            modalIcon.innerText = data.icon;
+            modalHeading.innerText = data.heading;
+            modalBody.innerText = data.text;
+
+            messageModal.classList.remove('hidden');
+            setTimeout(() => {
+                messageModal.classList.remove('opacity-0');
+                modalBox.classList.remove('scale-95');
+                modalBox.classList.add('scale-100');
+            }, 10);
+
+            confetti({
+                particleCount: 40,
+                spread: 60,
+                origin: { y: 0.5 }
+            });
+        }
+
+        function closeMessageModal() {
+            messageModal.classList.add('opacity-0');
+            modalBox.classList.remove('scale-100');
+            modalBox.classList.add('scale-95');
+            setTimeout(() => {
+                messageModal.classList.add('hidden');
+            }, 300);
+        }
+    </script>
+</body>
+</html>
